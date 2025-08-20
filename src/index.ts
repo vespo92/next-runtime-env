@@ -180,8 +180,8 @@ export function runtimeEnvMiddleware(config: RuntimeEnvConfig = {}) {
  * Next.js configuration wrapper
  */
 export function withRuntimeEnv(nextConfig: any, config: RuntimeEnvConfig = {}) {
-  // Patch environment on module load
-  if (typeof window === 'undefined') {
+  // Patch environment on module load (server-side only)
+  if (typeof globalThis !== 'undefined' && !(globalThis as any).window) {
     patchProcessEnv(config);
   }
 
