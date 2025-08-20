@@ -1,6 +1,6 @@
 {
   "name": "next-standalone-env",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Runtime environment variable resolution for Next.js standalone/Docker deployments. Allows the same Docker image to work across multiple environments.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
