@@ -1,0 +1,32 @@
+# Source files
+src/
+*.ts
+tsconfig.json
+
+# Development files
+examples/
+QUICK_START.md
+publish.sh
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+coverage/
+*.test.*
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build files
+*.tsbuildinfo
