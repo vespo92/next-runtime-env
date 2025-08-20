@@ -1,5 +1,5 @@
 /**
- * next-runtime-env
+ * next-standalone-env
  * 
  * Runtime environment variable resolution for Next.js standalone/Docker deployments.
  * Solves the problem of environment variables being baked in at build time.
@@ -89,8 +89,8 @@ export function resolveRuntimeEnv(config: RuntimeEnvConfig = {}): Record<string,
   const currentEnv = getCurrentEnvironment(envSelector);
   
   if (debug) {
-    console.log(`[next-runtime-env] Current environment: ${currentEnv}`);
-    console.log(`[next-runtime-env] Environment selector: ${envSelector}=${process.env[envSelector]}`);
+    console.log(`[next-standalone-env] Current environment: ${currentEnv}`);
+    console.log(`[next-standalone-env] Environment selector: ${envSelector}=${process.env[envSelector]}`);
   }
 
   // Get environment-specific configuration
@@ -98,7 +98,7 @@ export function resolveRuntimeEnv(config: RuntimeEnvConfig = {}): Record<string,
   
   if (!envConfig) {
     if (debug) {
-      console.warn(`[next-runtime-env] No configuration found for environment: ${currentEnv}`);
+      console.warn(`[next-standalone-env] No configuration found for environment: ${currentEnv}`);
     }
     return process.env;
   }
@@ -113,13 +113,13 @@ export function resolveRuntimeEnv(config: RuntimeEnvConfig = {}): Record<string,
     if (process.env[runtimeKey]) {
       runtimeEnv[key] = process.env[runtimeKey];
       if (debug) {
-        console.log(`[next-runtime-env] Using runtime override: ${runtimeKey}=${process.env[runtimeKey]}`);
+        console.log(`[next-standalone-env] Using runtime override: ${runtimeKey}=${process.env[runtimeKey]}`);
       }
     } else {
       // Apply environment-specific value
       runtimeEnv[key] = value;
       if (debug) {
-        console.log(`[next-runtime-env] Setting ${key}=${value} for environment ${currentEnv}`);
+        console.log(`[next-standalone-env] Setting ${key}=${value} for environment ${currentEnv}`);
       }
     }
   });
@@ -130,7 +130,7 @@ export function resolveRuntimeEnv(config: RuntimeEnvConfig = {}): Record<string,
     if (process.env[runtimeKey]) {
       runtimeEnv[varName] = process.env[runtimeKey];
       if (debug) {
-        console.log(`[next-runtime-env] Using runtime override: ${runtimeKey}=${process.env[runtimeKey]}`);
+        console.log(`[next-standalone-env] Using runtime override: ${runtimeKey}=${process.env[runtimeKey]}`);
       }
     }
   });
@@ -140,7 +140,7 @@ export function resolveRuntimeEnv(config: RuntimeEnvConfig = {}): Record<string,
     try {
       validate(runtimeEnv);
     } catch (error) {
-      console.error('[next-runtime-env] Validation failed:', error);
+      console.error('[next-standalone-env] Validation failed:', error);
       throw error;
     }
   }
@@ -162,7 +162,7 @@ export function patchProcessEnv(config: RuntimeEnvConfig = {}): void {
   });
 
   if (config.debug) {
-    console.log('[next-runtime-env] Process environment patched successfully');
+    console.log('[next-standalone-env] Process environment patched successfully');
   }
 }
 

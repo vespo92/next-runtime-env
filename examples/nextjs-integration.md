@@ -27,8 +27,8 @@ WORKDIR /app
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
 
-# Install next-runtime-env
-RUN npm install next-runtime-env
+# Install next-standalone-env
+RUN npm install next-standalone-env
 
 # Copy built application
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
@@ -43,7 +43,7 @@ USER nextjs
 EXPOSE 3000
 
 # Use runtime-aware server
-CMD ["node", "node_modules/next-runtime-env/server.js"]
+CMD ["node", "node_modules/next-standalone-env/server.js"]
 ```
 
 ### runtime-env.config.js
@@ -100,7 +100,7 @@ export { handler as GET, handler as POST };
 const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
-const { patchProcessEnv } = require('next-runtime-env');
+const { patchProcessEnv } = require('next-standalone-env');
 
 // Load your configuration
 const config = require('./runtime-env.config');

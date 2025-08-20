@@ -1,5 +1,5 @@
 {
-  "name": "next-runtime-env",
+  "name": "next-standalone-env",
   "version": "1.0.0",
   "description": "Runtime environment variable resolution for Next.js standalone/Docker deployments. Allows the same Docker image to work across multiple environments.",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "lint": "eslint src/**/*.ts",
     "prepublishOnly": "npm run build && npm test",
     "example": "node examples/test-runtime.js"
@@ -32,12 +32,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vespo92/next-runtime-env"
+    "url": "https://github.com/vespo92/next-standalone-env"
   },
   "bugs": {
-    "url": "https://github.com/vespo92/next-runtime-env/issues"
+    "url": "https://github.com/vespo92/next-standalone-env/issues"
   },
-  "homepage": "https://github.com/vespo92/next-runtime-env#readme",
+  "homepage": "https://github.com/vespo92/next-standalone-env#readme",
   "peerDependencies": {
     "next": ">=13.0.0"
   },

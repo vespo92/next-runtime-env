@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * next-runtime-env/server
+ * next-standalone-env/server
  * 
  * Drop-in replacement for Next.js standalone server with runtime environment resolution.
  * Place this file in your Docker container and use it instead of the default server.js
@@ -51,9 +51,9 @@ if (configPath) {
   try {
     const customConfig = require(path.resolve(configPath));
     config = { ...config, ...customConfig };
-    console.log(`[next-runtime-env] Loaded configuration from ${configPath}`);
+    console.log(`[next-standalone-env] Loaded configuration from ${configPath}`);
   } catch (error) {
-    console.error(`[next-runtime-env] Failed to load configuration from ${configPath}:`, error);
+    console.error(`[next-standalone-env] Failed to load configuration from ${configPath}:`, error);
   }
 }
 
@@ -62,7 +62,7 @@ try {
   const localConfig = require(path.resolve('runtime-env.config.js'));
   config = { ...config, ...localConfig };
   if (config.debug) {
-    console.log('[next-runtime-env] Loaded runtime-env.config.js');
+    console.log('[next-standalone-env] Loaded runtime-env.config.js');
   }
 } catch (error) {
   // Config file is optional
@@ -72,12 +72,12 @@ try {
 function resolveRuntimeEnv() {
   const currentEnv = process.env[config.envSelector] || process.env.NODE_ENV || 'production';
   
-  console.log(`[next-runtime-env] Starting server with environment: ${currentEnv}`);
+  console.log(`[next-standalone-env] Starting server with environment: ${currentEnv}`);
   
   const envConfig = config.environments[currentEnv];
   
   if (!envConfig) {
-    console.warn(`[next-runtime-env] No configuration found for environment: ${currentEnv}`);
+    console.warn(`[next-standalone-env] No configuration found for environment: ${currentEnv}`);
     return;
   }
 
@@ -87,11 +87,11 @@ function resolveRuntimeEnv() {
     
     if (process.env[runtimeKey]) {
       process.env[key] = process.env[runtimeKey];
-      console.log(`[next-runtime-env] Using runtime override: ${key}=${process.env[runtimeKey]}`);
+      console.log(`[next-standalone-env] Using runtime override: ${key}=${process.env[runtimeKey]}`);
     } else if (value) {
       const oldValue = process.env[key];
       process.env[key] = value;
-      console.log(`[next-runtime-env] Setting ${key}=${value} (was: ${oldValue})`);
+      console.log(`[next-standalone-env] Setting ${key}=${value} (was: ${oldValue})`);
     }
   });
 
@@ -100,7 +100,7 @@ function resolveRuntimeEnv() {
     const runtimeKey = `RUNTIME_${varName}`;
     if (process.env[runtimeKey]) {
       process.env[varName] = process.env[runtimeKey];
-      console.log(`[next-runtime-env] Using runtime override: ${varName}=${process.env[runtimeKey]}`);
+      console.log(`[next-standalone-env] Using runtime override: ${varName}=${process.env[runtimeKey]}`);
     }
   });
 
@@ -115,7 +115,7 @@ resolveRuntimeEnv();
 
 // Log final configuration
 if (config.debug) {
-  console.log('[next-runtime-env] Final environment:', {
+  console.log('[next-standalone-env] Final environment:', {
     NODE_ENV: process.env.NODE_ENV,
     [config.envSelector]: process.env[config.envSelector],
     ...config.variables.reduce((acc, v) => ({ ...acc, [v]: process.env[v] }), {})
@@ -167,37 +167,37 @@ app.prepare().then(() => {
       
       // Log auth requests for debugging
       if (config.debug && parsedUrl.pathname?.startsWith('/api/auth')) {
-        console.log(`[next-runtime-env] Auth request: ${req.method} ${parsedUrl.pathname}`);
+        console.log(`[next-standalone-env] Auth request: ${req.method} ${parsedUrl.pathname}`);
       }
       
       await handle(req, res, parsedUrl);
     } catch (err) {
-      console.error('[next-runtime-env] Error handling request:', err);
+      console.error('[next-standalone-env] Error handling request:', err);
       res.statusCode = 500;
       res.end('Internal server error');
     }
   }).listen(port, hostname, () => {
-    console.log(`[next-runtime-env] Server ready on http://${hostname}:${port}`);
+    console.log(`[next-standalone-env] Server ready on http://${hostname}:${port}`);
     
     // Log important URLs
     if (process.env.NEXTAUTH_URL) {
-      console.log(`[next-runtime-env] NextAuth URL: ${process.env.NEXTAUTH_URL}`);
+      console.log(`[next-standalone-env] NextAuth URL: ${process.env.NEXTAUTH_URL}`);
     }
     if (process.env.NEXT_PUBLIC_API_URL) {
-      console.log(`[next-runtime-env] Public API URL: ${process.env.NEXT_PUBLIC_API_URL}`);
+      console.log(`[next-standalone-env] Public API URL: ${process.env.NEXT_PUBLIC_API_URL}`);
     }
     
-    console.log(`[next-runtime-env] Environment: ${process.env[config.envSelector] || process.env.NODE_ENV}`);
+    console.log(`[next-standalone-env] Environment: ${process.env[config.envSelector] || process.env.NODE_ENV}`);
   });
 });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-  console.log('[next-runtime-env] SIGTERM received, shutting down gracefully');
+  console.log('[next-standalone-env] SIGTERM received, shutting down gracefully');
   process.exit(0);
 });
 
 process.on('SIGINT', () => {
-  console.log('[next-runtime-env] SIGINT received, shutting down gracefully');
+  console.log('[next-standalone-env] SIGINT received, shutting down gracefully');
   process.exit(0);
 });

@@ -1,4 +1,4 @@
-# Quick Start Guide for next-runtime-env
+# Quick Start Guide for next-standalone-env
 
 ## 🚀 Get Started in 2 Minutes
 
@@ -6,8 +6,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/vespo92/next-runtime-env.git
-cd next-runtime-env
+git clone https://github.com/vespo92/next-standalone-env.git
+cd next-standalone-env
 
 # Install dependencies
 npm install
@@ -45,7 +45,7 @@ npm login
 ## 📦 Package Structure
 
 ```
-next-runtime-env/
+next-standalone-env/
 ├── src/
 │   └── index.ts           # Main TypeScript source
 ├── dist/                  # Compiled JavaScript (after build)
@@ -87,7 +87,7 @@ RUN npm run build  # Bakes in prod URL
 ```dockerfile
 # Dockerfile
 RUN npm run build  # Build once with any URL
-CMD ["npx", "next-runtime-env/server"]  # Patch at runtime
+CMD ["npx", "next-standalone-env/server"]  # Patch at runtime
 ```
 
 ```bash
@@ -100,13 +100,13 @@ docker run -e APP_ENV=production image:latest
 
 ```bash
 # 1. Install the package in your Next.js app
-npm install next-runtime-env
+npm install next-standalone-env
 
 # 2. Create a runtime configuration
-cp node_modules/next-runtime-env/examples/runtime-env.config.js .
+cp node_modules/next-standalone-env/examples/runtime-env.config.js .
 
 # 3. Test locally
-APP_ENV=development npx next-runtime-env/server
+APP_ENV=development npx next-standalone-env/server
 
 # 4. Build Docker image
 docker buildx build --platform linux/amd64 -t myapp-test .

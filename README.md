@@ -1,8 +1,8 @@
-# next-runtime-env
+# next-standalone-env
 
 > Runtime environment variable resolution for Next.js standalone/Docker deployments
 
-[![npm version](https://badge.fury.io/js/next-runtime-env.svg)](https://www.npmjs.com/package/next-runtime-env)
+[![npm version](https://badge.fury.io/js/next-standalone-env.svg)](https://www.npmjs.com/package/next-standalone-env)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## The Problem
@@ -16,7 +16,7 @@ When Next.js builds in standalone mode (used for Docker deployments), environmen
 
 ## The Solution
 
-`next-runtime-env` patches environment variables **at runtime** when your container starts, allowing:
+`next-standalone-env` patches environment variables **at runtime** when your container starts, allowing:
 
 - ✅ One Docker image for all environments
 - ✅ Runtime configuration via `APP_ENV`
@@ -26,11 +26,11 @@ When Next.js builds in standalone mode (used for Docker deployments), environmen
 ## Installation
 
 ```bash
-npm install next-runtime-env
+npm install next-standalone-env
 # or
-yarn add next-runtime-env
+yarn add next-standalone-env
 # or
-pnpm add next-runtime-env
+pnpm add next-standalone-env
 ```
 
 ## Quick Start
@@ -46,7 +46,7 @@ FROM node:20-alpine
 # ... your build steps ...
 
 # Copy the runtime server
-COPY --from=builder /app/node_modules/next-runtime-env/server.js ./server.js
+COPY --from=builder /app/node_modules/next-standalone-env/server.js ./server.js
 
 # Use our server instead of Next.js standalone server
 CMD ["node", "server.js"]
@@ -130,7 +130,7 @@ export { handler as GET, handler as POST };
 ### Programmatic API
 
 ```javascript
-import { patchProcessEnv } from 'next-runtime-env';
+import { patchProcessEnv } from 'next-standalone-env';
 
 // In your custom server
 patchProcessEnv({
@@ -154,7 +154,7 @@ const app = next({ /* ... */ });
 
 ```javascript
 // next.config.js
-const { withRuntimeEnv } = require('next-runtime-env');
+const { withRuntimeEnv } = require('next-standalone-env');
 
 const nextConfig = {
   // your config
@@ -208,8 +208,8 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Install next-runtime-env
-RUN npm install next-runtime-env
+# Install next-standalone-env
+RUN npm install next-standalone-env
 
 # Copy built application
 COPY --from=builder /app/.next/standalone ./
@@ -220,7 +220,7 @@ COPY --from=builder /app/public ./public
 COPY runtime-env.config.js ./
 
 # Use runtime-aware server
-CMD ["npx", "next-runtime-env/server"]
+CMD ["npx", "next-standalone-env/server"]
 ```
 
 ## Kubernetes Example
@@ -326,11 +326,11 @@ docker run -e DEBUG=true -e APP_ENV=development your-image
 
 Output:
 ```
-[next-runtime-env] Starting server with environment: development
-[next-runtime-env] Setting NEXTAUTH_URL=https://dev.example.com (was: https://prod.example.com)
-[next-runtime-env] Server ready on http://0.0.0.0:3000
-[next-runtime-env] NextAuth URL: https://dev.example.com
-[next-runtime-env] Environment: development
+[next-standalone-env] Starting server with environment: development
+[next-standalone-env] Setting NEXTAUTH_URL=https://dev.example.com (was: https://prod.example.com)
+[next-standalone-env] Server ready on http://0.0.0.0:3000
+[next-standalone-env] NextAuth URL: https://dev.example.com
+[next-standalone-env] Environment: development
 ```
 
 ## Migration Guide
@@ -353,7 +353,7 @@ After:
 # Single Dockerfile
 # No environment-specific variables!
 # ... build ...
-CMD ["npx", "next-runtime-env/server"]
+CMD ["npx", "next-standalone-env/server"]
 ```
 
 ### From Build Arguments

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# NPM Package Publishing Script for next-runtime-env
+# NPM Package Publishing Script for next-standalone-env
 
 set -e
 
 echo "======================================"
-echo "Publishing next-runtime-env to NPM"
+echo "Publishing next-standalone-env to NPM"
 echo "======================================"
 echo ""
 
@@ -85,7 +85,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo ""
   echo "✅ Successfully published to NPM!"
   echo ""
-  echo "Package URL: https://www.npmjs.com/package/next-runtime-env"
+  echo "Package URL: https://www.npmjs.com/package/next-standalone-env"
   echo ""
   echo "Next steps:"
   echo "1. Create a GitHub repository"
