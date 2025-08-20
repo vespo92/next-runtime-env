@@ -5,7 +5,9 @@
 ### 1. Initialize and Build
 
 ```bash
-cd /Users/vinnieespo/ESPO/NEXT_DEV_ENV
+# Clone the repository
+git clone https://github.com/vespo92/next-runtime-env.git
+cd next-runtime-env
 
 # Install dependencies
 npm install
@@ -51,8 +53,7 @@ next-runtime-env/
 ├── examples/
 │   ├── runtime-env.config.js    # Example configuration
 │   ├── test-runtime.js          # Test script
-│   ├── nextjs-integration.md    # Integration examples
-│   └── espo-platform-example.md # ESPO-specific guide
+│   └── nextjs-integration.md    # Integration examples
 ├── package.json
 ├── tsconfig.json
 ├── README.md
@@ -95,24 +96,24 @@ docker run -e APP_ENV=development image:latest
 docker run -e APP_ENV=production image:latest
 ```
 
-## 🔧 Testing with ESPO Platform
+## 🔧 Testing with Your Next.js App
 
 ```bash
-# 1. Copy the solution to Platform
-cp -r src/* /Users/vinnieespo/ESPO/Rome/apps/platform/lib/runtime-env/
-cp server.js /Users/vinnieespo/ESPO/Rome/apps/platform/
-cp examples/runtime-env.config.js /Users/vinnieespo/ESPO/Rome/apps/platform/
+# 1. Install the package in your Next.js app
+npm install next-runtime-env
 
-# 2. Test locally
-cd /Users/vinnieespo/ESPO/Rome/apps/platform
-APP_ENV=development node server.js
+# 2. Create a runtime configuration
+cp node_modules/next-runtime-env/examples/runtime-env.config.js .
 
-# 3. Build Docker image
-docker buildx build --platform linux/amd64 -t platform-test .
+# 3. Test locally
+APP_ENV=development npx next-runtime-env/server
 
-# 4. Test different environments
-docker run -e APP_ENV=development -p 3001:3000 platform-test
-docker run -e APP_ENV=production -p 3002:3000 platform-test
+# 4. Build Docker image
+docker buildx build --platform linux/amd64 -t myapp-test .
+
+# 5. Test different environments
+docker run -e APP_ENV=development -p 3001:3000 myapp-test
+docker run -e APP_ENV=production -p 3002:3000 myapp-test
 ```
 
 ## 📝 Publishing Checklist
@@ -126,7 +127,6 @@ docker run -e APP_ENV=production -p 3002:3000 platform-test
 - [ ] Create GitHub repository
 - [ ] Push code with tags
 - [ ] Create GitHub release
-- [ ] Update ESPO Platform to use published package
 
 ## 🤝 Contributing
 
@@ -165,6 +165,6 @@ Found this helpful? Let me know!
 
 ---
 
-**Created by**: Vinnie Esposito
+**Created by**: Vinnie Espo
 **Problem**: Next.js bakes environment variables at build time
 **Solution**: Patch them at runtime!

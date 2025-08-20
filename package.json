@@ -28,7 +28,7 @@
     "kubernetes",
     "production"
   ],
-  "author": "Vinnie Esposito <vespo92@gmail.com>",
+  "author": "Vinnie Espo <vespo92@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",

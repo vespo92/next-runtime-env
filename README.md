@@ -391,7 +391,7 @@ Contributions welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT © [Vinnie Esposito](https://github.com/vespo92)
+MIT © [Vinnie Espo](https://github.com/vespo92)
 
 ## Related Projects
 

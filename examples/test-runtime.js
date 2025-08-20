@@ -10,7 +10,7 @@
  */
 
 // Load the package
-const { patchProcessEnv, resolveRuntimeEnv, getCurrentEnvironment } = require('../src');
+const { patchProcessEnv, resolveRuntimeEnv, getCurrentEnvironment } = require('../dist');
 
 // Load example config
 const config = require('./runtime-env.config');
