@@ -1,0 +1,55 @@
+{
+  "name": "next-runtime-env",
+  "version": "1.0.0",
+  "description": "Runtime environment variable resolution for Next.js standalone/Docker deployments. Allows the same Docker image to work across multiple environments.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "server.js"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "prepublishOnly": "npm run build && npm test",
+    "example": "node examples/test-runtime.js"
+  },
+  "keywords": [
+    "nextjs",
+    "next",
+    "docker",
+    "runtime",
+    "environment",
+    "env",
+    "nextauth",
+    "standalone",
+    "deployment",
+    "kubernetes",
+    "production"
+  ],
+  "author": "Vinnie Esposito <vespo92@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vespo92/next-runtime-env"
+  },
+  "bugs": {
+    "url": "https://github.com/vespo92/next-runtime-env/issues"
+  },
+  "homepage": "https://github.com/vespo92/next-runtime-env#readme",
+  "peerDependencies": {
+    "next": ">=13.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
